@@ -1,3 +1,5 @@
+import React from "react";
+
 //Include axios package for performing HTTP requests.
 var axios = require("axios");
 

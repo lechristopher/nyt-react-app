@@ -44,17 +44,29 @@
 /* 0 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
-	// Include the Main React Dependencies
-	var React = __webpack_require__(1);
-	var ReactDOM = __webpack_require__(37);
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactDom = __webpack_require__(37);
+
+	var _reactDom2 = _interopRequireDefault(_reactDom);
+
+	var _Main = __webpack_require__(184);
+
+	var _Main2 = _interopRequireDefault(_Main);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	// var Main = require("./Main");
+
+	_reactDom2.default.render(_react2.default.createElement(_Main2.default, null), document.getElementById("app"));
 
 	// For now including all three components.
 	// This will change as we recognize parent/child.
-	var Main = __webpack_require__(184);
-
-	ReactDOM.render(React.createElement(Main, null), document.getElementById("app"));
+	// Include the Main React Dependencies
 
 /***/ }),
 /* 1 */
@@ -22184,50 +22196,66 @@
 /* 184 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Search = __webpack_require__(185);
+
+	var _Search2 = _interopRequireDefault(_Search);
+
+	var _Saved = __webpack_require__(215);
+
+	var _Saved2 = _interopRequireDefault(_Saved);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 	// Include React
-	var React = __webpack_require__(1);
+	// var React = require("react");
+	//
+	// var Search = require("./Search");
+	//
+	// var Saved = require("./Saved");
 
-	var Search = __webpack_require__(185);
-
-	var Saved = __webpack_require__(215);
 
 	// Create the Main component.
-	var Main = React.createClass({
-	  displayName: "Main",
+	var Main = _react2.default.createClass({
+	  displayName: 'Main',
 
 	  // Describe Main Component's render method
 	  render: function render() {
-	    return React.createElement(
-	      "div",
-	      { className: "container" },
-	      React.createElement(
-	        "div",
-	        { className: "jumbotron" },
-	        React.createElement(
-	          "h1",
+	    return _react2.default.createElement(
+	      'div',
+	      { className: 'container' },
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'jumbotron' },
+	        _react2.default.createElement(
+	          'h1',
 	          null,
-	          "New York Times Article Scrubber"
+	          'New York Times Article Finder'
 	        ),
-	        React.createElement(
-	          "p",
+	        _react2.default.createElement(
+	          'p',
 	          null,
-	          "Search for and annotate articles of interest!"
+	          'Search for your Favorite Articles!'
 	        )
 	      ),
-	      React.createElement(
-	        "div",
-	        { className: "row" },
-	        React.createElement(Search, null)
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'row' },
+	        _react2.default.createElement(_Search2.default, null)
 	      ),
-	      React.createElement(
-	        "div",
-	        { className: "row" },
-	        React.createElement(Saved, null)
+	      _react2.default.createElement(
+	        'div',
+	        { className: 'row' },
+	        _react2.default.createElement(_Saved2.default, null)
 	      )
 	    );
 	  }
@@ -22240,24 +22268,43 @@
 /* 185 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	"use strict";
+	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Query = __webpack_require__(186);
+
+	var _Query2 = _interopRequireDefault(_Query);
+
+	var _Results = __webpack_require__(187);
+
+	var _Results2 = _interopRequireDefault(_Results);
+
+	var _helpers = __webpack_require__(188);
+
+	var _helpers2 = _interopRequireDefault(_helpers);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 	// Include React
-	var React = __webpack_require__(1);
+	// var React = require("react");
 
-	// Include Search sub-components.
-	var Query = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./Query\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
-	var Results = __webpack_require__(187);
-
-	// Helper for making AJAX requests.
-	var helpers = __webpack_require__(188);
+	// // Include Search sub-components.
+	// var Query = require("./Query");
+	// var Results = require("./Results")
+	//
+	// // Helper for making AJAX requests.
+	// var helpers = require("./utils/helpers");
 
 	// Create the Search component.
-	var Search = React.createClass({
-		displayName: "Search",
+	var Search = _react2.default.createClass({
+		displayName: 'Search',
 
 
 		// Set initial state of search criteria.
@@ -22272,7 +22319,7 @@
 		componentDidUpdate: function componentDidUpdate() {
 
 			// Run the article query for the search term
-			helpers.runQuery(this.state.searchTerm).then(function (data) {
+			_helpers2.default.runQuery(this.state.searchTerm).then(function (data) {
 				console.log("Search results: " + data);
 				this.setState({ results: data });
 			}.bind(this));
@@ -22284,25 +22331,25 @@
 		},
 
 		render: function render() {
-			return React.createElement(
-				"div",
-				{ className: "col-md-12" },
-				React.createElement(
-					"div",
-					{ className: "row" },
-					React.createElement(
-						"div",
-						{ className: "col-sm-12" },
-						React.createElement(Query, { setTerm: this.setTerm })
+			return _react2.default.createElement(
+				'div',
+				{ className: 'col-md-12' },
+				_react2.default.createElement(
+					'div',
+					{ className: 'row' },
+					_react2.default.createElement(
+						'div',
+						{ className: 'col-sm-12' },
+						_react2.default.createElement(_Query2.default, { setTerm: this.setTerm })
 					)
 				),
-				React.createElement(
-					"div",
-					{ className: "row" },
-					React.createElement(
-						"div",
-						{ className: "col-sm-12" },
-						React.createElement(Results, { results: this.state.results })
+				_react2.default.createElement(
+					'div',
+					{ className: 'row' },
+					_react2.default.createElement(
+						'div',
+						{ className: 'col-sm-12' },
+						_react2.default.createElement(_Results2.default, { results: this.state.results })
 					)
 				)
 			);
@@ -22313,7 +22360,97 @@
 	exports.default = Search;
 
 /***/ }),
-/* 186 */,
+/* 186 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	// Include React.
+	// var React = require("react");
+
+	var Query = _react2.default.createClass({
+		displayName: "Query",
+
+
+		getInitialState: function getInitialState() {
+			return { term: "" };
+		},
+
+		// Response to user input
+		handleChange: function handleChange(event) {
+
+			event.preventDefault();
+
+			this.setState({ term: event.target.value });
+		},
+
+		// When a user submits...
+		handleSubmit: function handleSubmit(event) {
+
+			// Prevent HTML from trying to submit form if user hits enter.
+			event.preventDefault();
+
+			// Set the parent to have the search term.
+			this.props.setTerm(this.state.term);
+			this.setState({ term: "" });
+		},
+
+		render: function render() {
+			return _react2.default.createElement(
+				"div",
+				{ className: "panel panel-primary" },
+				_react2.default.createElement(
+					"div",
+					{ className: "panel-heading" },
+					_react2.default.createElement(
+						"h3",
+						{ className: "panel-title" },
+						"Search"
+					)
+				),
+				_react2.default.createElement(
+					"div",
+					{ className: "panel-body" },
+					_react2.default.createElement(
+						"form",
+						{ onSubmit: this.handleSubmit },
+						_react2.default.createElement(
+							"div",
+							{ className: "form-group" },
+							_react2.default.createElement("input", {
+								value: this.state.term,
+								type: "text",
+								className: "form-control",
+								id: "term",
+								onChange: this.handleChange,
+								required: true
+							}),
+							_react2.default.createElement(
+								"button",
+								{ className: "btn btn-primary", type: "submit" },
+								"Search"
+							)
+						)
+					)
+				)
+			);
+		}
+	});
+
+	// Export the component back for use in other files.
+	exports.default = Query;
+
+/***/ }),
 /* 187 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22322,13 +22459,24 @@
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _helpers = __webpack_require__(188);
+
+	var _helpers2 = _interopRequireDefault(_helpers);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 	// Include React
-	var React = __webpack_require__(1);
+	// var React = require("react");
 
 	// Helper for making AJAX requests.
-	var helpers = __webpack_require__(188);
+	// var helpers = require("./utils/helpers");
 
-	var Results = React.createClass({
+	var Results = _react2.default.createClass({
 		displayName: "Results",
 
 
@@ -22342,7 +22490,7 @@
 
 			this.setState({ articleToSave: "Great article." });
 
-			helpers.saveArticle(this.state.articleToSave).then(function (data) {
+			_helpers2.default.saveArticle(this.state.articleToSave).then(function (data) {
 				console.log("New article saved: " + data);
 			}.bind(this));
 		},
@@ -22351,34 +22499,34 @@
 		render: function render() {
 
 			if (this.props.results) {
-				return React.createElement(
+				return _react2.default.createElement(
 					"div",
 					{ className: "panel panel-primary" },
-					React.createElement(
+					_react2.default.createElement(
 						"div",
 						{ className: "panel-heading" },
-						React.createElement(
+						_react2.default.createElement(
 							"h3",
 							{ className: "panel-title" },
 							"Results"
 						)
 					),
-					React.createElement(
+					_react2.default.createElement(
 						"div",
 						{ className: "panel-body", id: "results-section" },
-						React.createElement(
+						_react2.default.createElement(
 							"ul",
 							null,
 							this.props.results.map(function (obj, index) {
-								return React.createElement(
+								return _react2.default.createElement(
 									"form",
 									{ onSubmit: this.handleSave },
-									React.createElement(
+									_react2.default.createElement(
 										"p",
 										{ key: index },
 										obj.headline.main
 									),
-									React.createElement(
+									_react2.default.createElement(
 										"button",
 										{ type: "submit" },
 										"Save"
@@ -22389,19 +22537,19 @@
 					)
 				);
 			} else {
-				return React.createElement(
+				return _react2.default.createElement(
 					"div",
 					{ className: "panel panel-primary" },
-					React.createElement(
+					_react2.default.createElement(
 						"div",
 						{ className: "panel-heading" },
-						React.createElement(
+						_react2.default.createElement(
 							"h3",
 							{ className: "panel-title" },
 							"Results"
 						)
 					),
-					React.createElement("div", { className: "panel-body", id: "results-section" })
+					_react2.default.createElement("div", { className: "panel-body", id: "results-section" })
 				);
 			}
 		}
@@ -22419,6 +22567,13 @@
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 	//Include axios package for performing HTTP requests.
 	var axios = __webpack_require__(189);
 

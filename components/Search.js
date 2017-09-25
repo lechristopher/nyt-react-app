@@ -1,12 +1,16 @@
+import React from "react";
+import Query from './Query';
+import Results from './Results';
+import helpers from './utils/helpers';
 // Include React
-var React = require("react");
+// var React = require("react");
 
-// Include Search sub-components.
-var Query = require("./Query");
-var Results = require("./Results")
-
-// Helper for making AJAX requests.
-var helpers = require("./utils/helpers");
+// // Include Search sub-components.
+// var Query = require("./Query");
+// var Results = require("./Results")
+//
+// // Helper for making AJAX requests.
+// var helpers = require("./utils/helpers");
 
 // Create the Search component.
 var Search = React.createClass({

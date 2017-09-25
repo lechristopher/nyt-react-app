@@ -1,9 +1,9 @@
-import React { Component } from "react";
+import React, {Component} from "react";
 
 
 
 // Include React.
-var React = require("react");
+// var React = require("react");
 
 var Query = React.createClass({
 

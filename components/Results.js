@@ -1,8 +1,10 @@
+import React from "react";
+import helpers from "./utils/helpers";
 // Include React
-var React = require("react");
+// var React = require("react");
 
 // Helper for making AJAX requests.
-var helpers = require("./utils/helpers");
+// var helpers = require("./utils/helpers");
 
 var Results = React.createClass({
 
