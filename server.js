@@ -24,20 +24,15 @@ app.use(express.static("./public"));
 
 // -------------------------------------------------
 
-// MongoDB Configuration configuration (Change this URL to your own DB)
-
-var MONGODB_URI = "MONGODB_URI: mongodb://heroku_6n68zsw2:unokdig99dkaijbcr3r7vulrlo@ds031193.mlab.com:31193/heroku_6n68zsw2";
-mongoose.connect(MONGODB_URI);
-var db = mongoose.connection;
-
-db.on("error", function(err) {
-  console.log("Mongoose Error: ", err);
-});
-
-db.once("open", function() {
-  console.log("Mongoose connection successful.");
-});
-
+// Set up promises with mongoose
+mongoose.Promise = global.Promise;
+// Connect to the Mongo DB
+mongoose.connect(
+  process.env.MONGODB_URI || "mongodb://localhost/nytreact",
+  {
+    useMongoClient: true
+  }
+);
 // -------------------------------------------------
 
 // Get saved articles, limiting to 10.
