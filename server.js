@@ -25,7 +25,9 @@ app.use(express.static("./public"));
 // -------------------------------------------------
 
 // MongoDB Configuration configuration (Change this URL to your own DB)
-mongoose.connect("mongodb://localhost/nytreact");
+
+var MONGODB_URI = "MONGODB_URI: mongodb://heroku_6n68zsw2:unokdig99dkaijbcr3r7vulrlo@ds031193.mlab.com:31193/heroku_6n68zsw2";
+mongoose.connect(MONGODB_URI);
 var db = mongoose.connection;
 
 db.on("error", function(err) {
@@ -80,6 +82,6 @@ app.post("/api/saved", function(req, res) {
 // -------------------------------------------------
 
 // Listener
-app.listen(PORT, function() {
+app.listen(process.env.PORT, () => {
   console.log("App listening on PORT: " + PORT);
 });

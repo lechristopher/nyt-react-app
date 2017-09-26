@@ -52,4 +52,4 @@ var Saved = React.createClass({
 });
 
 // Export the component back for use in other files
-export default Saved;	
+export default Saved;

@@ -24,7 +24,7 @@ var Search = React.createClass({
 	},
 
 	// If the component changes, i.e. if search query submitted
-	componentDidUpdate : function() {
+	componentDidUpdate = () => {
 
 		// Run the article query for the search term
 		helpers.runQuery(this.state.searchTerm).then(function(data) {

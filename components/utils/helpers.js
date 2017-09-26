@@ -31,8 +31,6 @@ var helper = {
 	saveArticle: function(article) {
 		return axios.post("/api/saved", {
 			title: article.headline.main
-			//date: date,
-			//url: url
 		});
 	}
 };

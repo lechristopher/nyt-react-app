@@ -22206,11 +22206,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Search = __webpack_require__(185);
+	var _Search = __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"./Search\""); e.code = 'MODULE_NOT_FOUND'; throw e; }()));
 
 	var _Search2 = _interopRequireDefault(_Search);
 
-	var _Saved = __webpack_require__(215);
+	var _Saved = __webpack_require__(186);
 
 	var _Saved2 = _interopRequireDefault(_Saved);
 
@@ -22265,101 +22265,7 @@
 	exports.default = Main;
 
 /***/ }),
-/* 185 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _Query = __webpack_require__(186);
-
-	var _Query2 = _interopRequireDefault(_Query);
-
-	var _Results = __webpack_require__(187);
-
-	var _Results2 = _interopRequireDefault(_Results);
-
-	var _helpers = __webpack_require__(188);
-
-	var _helpers2 = _interopRequireDefault(_helpers);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	// Include React
-	// var React = require("react");
-
-	// // Include Search sub-components.
-	// var Query = require("./Query");
-	// var Results = require("./Results")
-	//
-	// // Helper for making AJAX requests.
-	// var helpers = require("./utils/helpers");
-
-	// Create the Search component.
-	var Search = _react2.default.createClass({
-		displayName: 'Search',
-
-
-		// Set initial state of search criteria.
-		getInitialState: function getInitialState() {
-			return {
-				searchTerm: "",
-				results: []
-			};
-		},
-
-		// If the component changes, i.e. if search query submitted
-		componentDidUpdate: function componentDidUpdate() {
-
-			// Run the article query for the search term
-			_helpers2.default.runQuery(this.state.searchTerm).then(function (data) {
-				console.log("Search results: " + data);
-				this.setState({ results: data });
-			}.bind(this));
-		},
-
-		// Allows children (sub-components) to update parent component.
-		setTerm: function setTerm(term) {
-			this.setState({ searchTerm: term });
-		},
-
-		render: function render() {
-			return _react2.default.createElement(
-				'div',
-				{ className: 'col-md-12' },
-				_react2.default.createElement(
-					'div',
-					{ className: 'row' },
-					_react2.default.createElement(
-						'div',
-						{ className: 'col-sm-12' },
-						_react2.default.createElement(_Query2.default, { setTerm: this.setTerm })
-					)
-				),
-				_react2.default.createElement(
-					'div',
-					{ className: 'row' },
-					_react2.default.createElement(
-						'div',
-						{ className: 'col-sm-12' },
-						_react2.default.createElement(_Results2.default, { results: this.state.results })
-					)
-				)
-			);
-		}
-	});
-
-	// Export the component back for use in other files
-	exports.default = Search;
-
-/***/ }),
+/* 185 */,
 /* 186 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22368,77 +22274,69 @@
 	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
+	// Include React
+	var React = __webpack_require__(1);
 
-	var _react = __webpack_require__(1);
+	var helpers = __webpack_require__(187);
 
-	var _react2 = _interopRequireDefault(_react);
+	// Create the Saved component
+	var Saved = React.createClass({
+		displayName: "Saved",
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	// Include React.
-	// var React = require("react");
-
-	var Query = _react2.default.createClass({
-		displayName: "Query",
-
-
+		// Set a generic set of states associated with Main Component
 		getInitialState: function getInitialState() {
-			return { term: "" };
+			return {
+				saved: []
+			};
 		},
 
-		// Response to user input
-		handleChange: function handleChange(event) {
+		componentDidMount: function componentDidMount() {
+			helpers.getSaved().then(function (response) {
+				console.log("Saved articles: " + response);
 
-			event.preventDefault();
-
-			this.setState({ term: event.target.value });
+				if (response !== this.state.saved) {
+					console.log("New saved articles", response.data);
+					this.setState({ saved: response.data });
+				}
+			}.bind(this));
 		},
 
-		// When a user submits...
-		handleSubmit: function handleSubmit(event) {
-
-			// Prevent HTML from trying to submit form if user hits enter.
-			event.preventDefault();
-
-			// Set the parent to have the search term.
-			this.props.setTerm(this.state.term);
-			this.setState({ term: "" });
+		deleteArticle: function deleteArticle() {
+			console.log("We are in delete function.");
 		},
 
 		render: function render() {
-			return _react2.default.createElement(
+			return React.createElement(
 				"div",
-				{ className: "panel panel-primary" },
-				_react2.default.createElement(
+				{ className: "col-md-12" },
+				React.createElement(
 					"div",
-					{ className: "panel-heading" },
-					_react2.default.createElement(
-						"h3",
-						{ className: "panel-title" },
-						"Search"
-					)
-				),
-				_react2.default.createElement(
-					"div",
-					{ className: "panel-body" },
-					_react2.default.createElement(
-						"form",
-						{ onSubmit: this.handleSubmit },
-						_react2.default.createElement(
+					{ className: "row" },
+					React.createElement(
+						"div",
+						{ className: "col-sm-12" },
+						React.createElement(
 							"div",
-							{ className: "form-group" },
-							_react2.default.createElement("input", {
-								value: this.state.term,
-								type: "text",
-								className: "form-control",
-								id: "term",
-								onChange: this.handleChange,
-								required: true
-							}),
-							_react2.default.createElement(
-								"button",
-								{ className: "btn btn-primary", type: "submit" },
-								"Search"
+							{ className: "panel panel-primary" },
+							React.createElement(
+								"div",
+								{ className: "panel-heading" },
+								React.createElement(
+									"h3",
+									{ className: "panel-title" },
+									"Saved Articles"
+								)
+							),
+							React.createElement(
+								"div",
+								{ className: "panel-body", id: "saved-section" },
+								this.state.saved.map(function (article, i) {
+									return React.createElement(
+										"p",
+										{ key: i },
+										article.title
+									);
+								})
 							)
 						)
 					)
@@ -22447,8 +22345,8 @@
 		}
 	});
 
-	// Export the component back for use in other files.
-	exports.default = Query;
+	// Export the component back for use in other files
+	exports.default = Saved;
 
 /***/ }),
 /* 187 */
@@ -22464,118 +22362,10 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _helpers = __webpack_require__(188);
-
-	var _helpers2 = _interopRequireDefault(_helpers);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	// Include React
-	// var React = require("react");
-
-	// Helper for making AJAX requests.
-	// var helpers = require("./utils/helpers");
-
-	var Results = _react2.default.createClass({
-		displayName: "Results",
-
-
-		getInitialState: function getInitialState() {
-			return { articleToSave: "" };
-		},
-
-		handleSave: function handleSave(event) {
-			// Prevent HTML from trying to submit form if user hits enter.
-			event.preventDefault();
-
-			this.setState({ articleToSave: "Great article." });
-
-			_helpers2.default.saveArticle(this.state.articleToSave).then(function (data) {
-				console.log("New article saved: " + data);
-			}.bind(this));
-		},
-
-		// Here we render the function
-		render: function render() {
-
-			if (this.props.results) {
-				return _react2.default.createElement(
-					"div",
-					{ className: "panel panel-primary" },
-					_react2.default.createElement(
-						"div",
-						{ className: "panel-heading" },
-						_react2.default.createElement(
-							"h3",
-							{ className: "panel-title" },
-							"Results"
-						)
-					),
-					_react2.default.createElement(
-						"div",
-						{ className: "panel-body", id: "results-section" },
-						_react2.default.createElement(
-							"ul",
-							null,
-							this.props.results.map(function (obj, index) {
-								return _react2.default.createElement(
-									"form",
-									{ onSubmit: this.handleSave },
-									_react2.default.createElement(
-										"p",
-										{ key: index },
-										obj.headline.main
-									),
-									_react2.default.createElement(
-										"button",
-										{ type: "submit" },
-										"Save"
-									)
-								);
-							})
-						)
-					)
-				);
-			} else {
-				return _react2.default.createElement(
-					"div",
-					{ className: "panel panel-primary" },
-					_react2.default.createElement(
-						"div",
-						{ className: "panel-heading" },
-						_react2.default.createElement(
-							"h3",
-							{ className: "panel-title" },
-							"Results"
-						)
-					),
-					_react2.default.createElement("div", { className: "panel-body", id: "results-section" })
-				);
-			}
-		}
-	});
-
-	// Export component back for use in other files
-	exports.default = Results;
-
-/***/ }),
-/* 188 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	//Include axios package for performing HTTP requests.
-	var axios = __webpack_require__(189);
+	var axios = __webpack_require__(188);
 
 	var authKey = "5c4953b3d9a64372a9b2d64f55d8d089";
 
@@ -22605,8 +22395,6 @@
 		saveArticle: function saveArticle(article) {
 			return axios.post("/api/saved", {
 				title: article.headline.main
-				//date: date,
-				//url: url
 			});
 		}
 	};
@@ -22615,21 +22403,21 @@
 	exports.default = helper;
 
 /***/ }),
-/* 189 */
+/* 188 */
 /***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(190);
+	module.exports = __webpack_require__(189);
 
 /***/ }),
-/* 190 */
+/* 189 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(191);
-	var bind = __webpack_require__(192);
-	var Axios = __webpack_require__(194);
-	var defaults = __webpack_require__(195);
+	var utils = __webpack_require__(190);
+	var bind = __webpack_require__(191);
+	var Axios = __webpack_require__(193);
+	var defaults = __webpack_require__(194);
 
 	/**
 	 * Create an instance of Axios
@@ -22662,15 +22450,15 @@
 	};
 
 	// Expose Cancel & CancelToken
-	axios.Cancel = __webpack_require__(212);
-	axios.CancelToken = __webpack_require__(213);
-	axios.isCancel = __webpack_require__(209);
+	axios.Cancel = __webpack_require__(211);
+	axios.CancelToken = __webpack_require__(212);
+	axios.isCancel = __webpack_require__(208);
 
 	// Expose all/spread
 	axios.all = function all(promises) {
 	  return Promise.all(promises);
 	};
-	axios.spread = __webpack_require__(214);
+	axios.spread = __webpack_require__(213);
 
 	module.exports = axios;
 
@@ -22679,13 +22467,13 @@
 
 
 /***/ }),
-/* 191 */
+/* 190 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var bind = __webpack_require__(192);
-	var isBuffer = __webpack_require__(193);
+	var bind = __webpack_require__(191);
+	var isBuffer = __webpack_require__(192);
 
 	/*global toString:true*/
 
@@ -22988,7 +22776,7 @@
 
 
 /***/ }),
-/* 192 */
+/* 191 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -23005,7 +22793,7 @@
 
 
 /***/ }),
-/* 193 */
+/* 192 */
 /***/ (function(module, exports) {
 
 	/*!
@@ -23032,17 +22820,17 @@
 
 
 /***/ }),
-/* 194 */
+/* 193 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var defaults = __webpack_require__(195);
-	var utils = __webpack_require__(191);
-	var InterceptorManager = __webpack_require__(206);
-	var dispatchRequest = __webpack_require__(207);
-	var isAbsoluteURL = __webpack_require__(210);
-	var combineURLs = __webpack_require__(211);
+	var defaults = __webpack_require__(194);
+	var utils = __webpack_require__(190);
+	var InterceptorManager = __webpack_require__(205);
+	var dispatchRequest = __webpack_require__(206);
+	var isAbsoluteURL = __webpack_require__(209);
+	var combineURLs = __webpack_require__(210);
 
 	/**
 	 * Create a new instance of Axios
@@ -23124,13 +22912,13 @@
 
 
 /***/ }),
-/* 195 */
+/* 194 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var utils = __webpack_require__(191);
-	var normalizeHeaderName = __webpack_require__(196);
+	var utils = __webpack_require__(190);
+	var normalizeHeaderName = __webpack_require__(195);
 
 	var DEFAULT_CONTENT_TYPE = {
 	  'Content-Type': 'application/x-www-form-urlencoded'
@@ -23146,10 +22934,10 @@
 	  var adapter;
 	  if (typeof XMLHttpRequest !== 'undefined') {
 	    // For browsers use XHR adapter
-	    adapter = __webpack_require__(197);
+	    adapter = __webpack_require__(196);
 	  } else if (typeof process !== 'undefined') {
 	    // For node use HTTP adapter
-	    adapter = __webpack_require__(197);
+	    adapter = __webpack_require__(196);
 	  }
 	  return adapter;
 	}
@@ -23223,12 +23011,12 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 196 */
+/* 195 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(191);
+	var utils = __webpack_require__(190);
 
 	module.exports = function normalizeHeaderName(headers, normalizedName) {
 	  utils.forEach(headers, function processHeader(value, name) {
@@ -23241,18 +23029,18 @@
 
 
 /***/ }),
-/* 197 */
+/* 196 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 
-	var utils = __webpack_require__(191);
-	var settle = __webpack_require__(198);
-	var buildURL = __webpack_require__(201);
-	var parseHeaders = __webpack_require__(202);
-	var isURLSameOrigin = __webpack_require__(203);
-	var createError = __webpack_require__(199);
-	var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(204);
+	var utils = __webpack_require__(190);
+	var settle = __webpack_require__(197);
+	var buildURL = __webpack_require__(200);
+	var parseHeaders = __webpack_require__(201);
+	var isURLSameOrigin = __webpack_require__(202);
+	var createError = __webpack_require__(198);
+	var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(203);
 
 	module.exports = function xhrAdapter(config) {
 	  return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -23349,7 +23137,7 @@
 	    // This is only done if running in a standard browser environment.
 	    // Specifically not if we're in a web worker, or react-native.
 	    if (utils.isStandardBrowserEnv()) {
-	      var cookies = __webpack_require__(205);
+	      var cookies = __webpack_require__(204);
 
 	      // Add xsrf header
 	      var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
@@ -23428,12 +23216,12 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
 /***/ }),
-/* 198 */
+/* 197 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var createError = __webpack_require__(199);
+	var createError = __webpack_require__(198);
 
 	/**
 	 * Resolve or reject a Promise based on response status.
@@ -23460,12 +23248,12 @@
 
 
 /***/ }),
-/* 199 */
+/* 198 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var enhanceError = __webpack_require__(200);
+	var enhanceError = __webpack_require__(199);
 
 	/**
 	 * Create an Error with the specified message, config, error code, request and response.
@@ -23484,7 +23272,7 @@
 
 
 /***/ }),
-/* 200 */
+/* 199 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -23511,12 +23299,12 @@
 
 
 /***/ }),
-/* 201 */
+/* 200 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(191);
+	var utils = __webpack_require__(190);
 
 	function encode(val) {
 	  return encodeURIComponent(val).
@@ -23585,12 +23373,12 @@
 
 
 /***/ }),
-/* 202 */
+/* 201 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(191);
+	var utils = __webpack_require__(190);
 
 	/**
 	 * Parse headers into an object
@@ -23628,12 +23416,12 @@
 
 
 /***/ }),
-/* 203 */
+/* 202 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(191);
+	var utils = __webpack_require__(190);
 
 	module.exports = (
 	  utils.isStandardBrowserEnv() ?
@@ -23702,7 +23490,7 @@
 
 
 /***/ }),
-/* 204 */
+/* 203 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -23744,12 +23532,12 @@
 
 
 /***/ }),
-/* 205 */
+/* 204 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(191);
+	var utils = __webpack_require__(190);
 
 	module.exports = (
 	  utils.isStandardBrowserEnv() ?
@@ -23803,12 +23591,12 @@
 
 
 /***/ }),
-/* 206 */
+/* 205 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(191);
+	var utils = __webpack_require__(190);
 
 	function InterceptorManager() {
 	  this.handlers = [];
@@ -23861,15 +23649,15 @@
 
 
 /***/ }),
-/* 207 */
+/* 206 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(191);
-	var transformData = __webpack_require__(208);
-	var isCancel = __webpack_require__(209);
-	var defaults = __webpack_require__(195);
+	var utils = __webpack_require__(190);
+	var transformData = __webpack_require__(207);
+	var isCancel = __webpack_require__(208);
+	var defaults = __webpack_require__(194);
 
 	/**
 	 * Throws a `Cancel` if cancellation has been requested.
@@ -23946,12 +23734,12 @@
 
 
 /***/ }),
-/* 208 */
+/* 207 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var utils = __webpack_require__(191);
+	var utils = __webpack_require__(190);
 
 	/**
 	 * Transform the data for a request or a response
@@ -23972,7 +23760,7 @@
 
 
 /***/ }),
-/* 209 */
+/* 208 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -23983,7 +23771,7 @@
 
 
 /***/ }),
-/* 210 */
+/* 209 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -24003,7 +23791,7 @@
 
 
 /***/ }),
-/* 211 */
+/* 210 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -24023,7 +23811,7 @@
 
 
 /***/ }),
-/* 212 */
+/* 211 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -24048,12 +23836,12 @@
 
 
 /***/ }),
-/* 213 */
+/* 212 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 
-	var Cancel = __webpack_require__(212);
+	var Cancel = __webpack_require__(211);
 
 	/**
 	 * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -24111,7 +23899,7 @@
 
 
 /***/ }),
-/* 214 */
+/* 213 */
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -24142,89 +23930,6 @@
 	  };
 	};
 
-
-/***/ }),
-/* 215 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	"use strict";
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-	// Include React
-	var React = __webpack_require__(1);
-
-	var helpers = __webpack_require__(188);
-
-	// Create the Saved component
-	var Saved = React.createClass({
-		displayName: "Saved",
-
-		// Set a generic set of states associated with Main Component
-		getInitialState: function getInitialState() {
-			return {
-				saved: []
-			};
-		},
-
-		componentDidMount: function componentDidMount() {
-			helpers.getSaved().then(function (response) {
-				console.log("Saved articles: " + response);
-
-				if (response !== this.state.saved) {
-					console.log("New saved articles", response.data);
-					this.setState({ saved: response.data });
-				}
-			}.bind(this));
-		},
-
-		deleteArticle: function deleteArticle() {
-			console.log("We are in delete function.");
-		},
-
-		render: function render() {
-			return React.createElement(
-				"div",
-				{ className: "col-md-12" },
-				React.createElement(
-					"div",
-					{ className: "row" },
-					React.createElement(
-						"div",
-						{ className: "col-sm-12" },
-						React.createElement(
-							"div",
-							{ className: "panel panel-primary" },
-							React.createElement(
-								"div",
-								{ className: "panel-heading" },
-								React.createElement(
-									"h3",
-									{ className: "panel-title" },
-									"Saved Articles"
-								)
-							),
-							React.createElement(
-								"div",
-								{ className: "panel-body", id: "saved-section" },
-								this.state.saved.map(function (article, i) {
-									return React.createElement(
-										"p",
-										{ key: i },
-										article.title
-									);
-								})
-							)
-						)
-					)
-				)
-			);
-		}
-	});
-
-	// Export the component back for use in other files
-	exports.default = Saved;
 
 /***/ })
 /******/ ]);

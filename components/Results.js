@@ -24,7 +24,7 @@ var Results = React.createClass({
 	},
 
 	// Here we render the function
-	render: function() {
+	render = () => {
 
 		if (this.props.results) {
 			return (

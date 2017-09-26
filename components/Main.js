@@ -13,7 +13,7 @@ import Saved from './Saved';
 // Create the Main component.
 var Main = React.createClass({
   // Describe Main Component's render method
-  render: function() {
+  render: function()  {
     return (
       <div className="container">
         <div className="jumbotron">
